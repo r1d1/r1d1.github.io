@@ -9,17 +9,27 @@
 		<!--link rel="stylesheet" media="screen" type="text/css" title="CSES" href="cses.css" /-->
 		</head>
 <style>
-#rhead { position: relative; left: 0.4em; transition: left 1s ease-in-out; }
-#rhead:hover { position: relative; left: -0.4em; }
-#logo { width:30%; height: auto; }
+	body { background-color: black; color: white; }
+	#mainblock { background-color: DarkRed; border-radius: 400px; text-align: center; border: 0px solid red; padding: 20px; }
+	#rhead { position: relative; left: 0.4em; transition: left 1s ease-in-out; }
+	#rhead:hover { position: relative; left: -0.4em; }
+	#logo { width: 30%; height: auto; }
+	.centeredlist { margin-left: auto; margin-right: auto; border: 0px solid blue; width: 30%; }
+	 a:visited { color: lightblue; }
 </style>
 <body>
-	<div style="text-align: center;">
+	<div id="mainblock">
 		( <span id="rhead">*+*</span> )
 		<br />
 		<img src="Brain3.png" id="logo" />
 		<h1>R1D1's space</h1>
-		<a href="https://github.com/r1d1?tab=repositories">My GitHub Reps</a>
+		<div class="centeredlist">
+			<ul style="text-align: left;">
+				<li><a href="https://github.com/r1d1?tab=repositories">My GitHub Reps</a></li>
+				<li><a href="http://r1d1.github.io/workingchart.html">Chart with d3</a></li>
+			</ul>
+		</div>
+		
 	</div>
 </body>
  
