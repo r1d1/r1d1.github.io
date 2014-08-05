@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Working chart ...</title>
+<style>
+	body { background-color: #000000; }
+
+	.globalchart
+	{
+		background-color: #777777;
+		text-align: center;
+		width: 98%;
+		height: 405px;
+		border: solid 5px #FFFFFF;
+	}
+		
+	/*.bar:hover { fill: AliceBlue; }*/
+
+	#bar1 { fill: DarkMagenta; }
+	#bar2 { fill: DarkRed; }
+	#bar3 { fill: LimeGreen; }
+	#bar4 { fill: Gold; }
+
+	#bar1:hover, #bar2:hover, #bar3:hover, #bar4:hover { fill: AliceBlue; }
+
+
+/*	#bar1:hover { fill: DarkMagenta; }
+	#bar2:hover { fill: DarkRed; }
+	#bar3:hover { fill: LimeGreen; }
+	#bar4:hover { fill: Gold; }*/
+
+	.axis{ font: 10px sans-serif; }
+	.axis path, .axis line { fill: none; stroke: #000; shape-rendering: crispEdges; }
+	.x.axis path { display: none; }
+
+</style>
+<body>
+	<div class="globalchart"></div>
+</body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+		width = 600 - margin.left - margin.right,
+		height = 400 - margin.top - margin.bottom;
+
+	var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
+
+	var y = d3.scale.linear().range([height, 0]);
+
+	var xAxis = d3.svg.axis().scale(x).orient("bottom");
+
+	var yAxis = d3.svg.axis().scale(y).orient("left").ticks(20);
+		
+
+	var svg = d3.select(".globalchart").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	d3.tsv("testdata.tsv", type, function(error, data) {
+	  x.domain(data.map(function(d) { return d.name; }));
+	  y.domain([0, d3.max(data, function(d) { return d.number; })]);
+
+	  svg.append("g")
+		  .attr("class", "x axis")
+		  .attr("transform", "translate(0," + height + ")")
+		  .call(xAxis);
+
+	  svg.append("g")
+		  .attr("class", "y axis")
+		  .call(yAxis)
+		.append("text")
+	 //     .attr("transform", "rotate(-90)")
+		  .attr("x", 50)
+		  .attr("y", 6)
+		  .attr("dy", ".71em")
+		  .style("text-anchor", "end")
+		  .text("Numbers");
+
+	  svg.selectAll(".bar")
+		  .data(data)
+		.enter().append("rect")
+		  .attr("class", "bar")
+		  .attr("id", function(d){ return "bar"+d.type; })
+		  .attr("x", function(d) { return x(d.name); })
+		  .attr("width", x.rangeBand())
+		  .attr("y", function(d) { return y(d.number); })
+		  .attr("height", function(d) { return height - y(d.number); });
+
+	});
+
+	function type(d){ d.number = +d.number; return d; }
+
+</script>
