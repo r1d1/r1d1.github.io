@@ -1,6 +1,4 @@
-r1d1.github.io
-
-==============
+# r1d1.github.io
 
 Testing Web languages & tools ...
 
