@@ -41,9 +41,9 @@
 	<body>
 		<div>
 			Number of Lines:
-			<input id="linecount" name="lines" value="7" onkeyup="render()"></input>
+			<input id="linecount" name="lines" value="3" onkeyup="render()"></input>
 			Points per Line:
-			<input id="pointcount" name="points" value="3" onkeyup="render()"></input>
+			<input id="pointcount" name="points" value="50" onkeyup="render()"></input>
 		    	<input name="updateButton" type="button" value="Update" onclick="render()" />
 		</div>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
@@ -71,8 +71,12 @@
 			// create random data
 			function newData(lineNumber, points){
 				return d3.range(lineNumber).map(function(){
+					var phase = Math.random();
+					var amplitude = Math.random();
+					var freqFactor = 5.0*Math.random();
 					return d3.range(points).map(function(item,idx){
-						return {x:idx/(points-1),y:Math.random()+Math.exp(-Math.random()*10)};
+						return {x:idx/(points-1),y:Math.pow(amplitude,2)*Math.sin(2*Math.PI*(1.0+freqFactor)*(idx/(points-1)+phase))};
+						//return {x:idx/(points-1),y:Math.random()+Math.exp(-Math.random()*10)};
 						//return {x:idx/(points-1),y:Math.random()*100};
 					});
 				});
